@@ -1,0 +1,68 @@
+﻿@model ECocktails.Domain.DomainModels.Barman
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Details for barman";
+}
+
+@{
+    bool loggedIn = @Context.Session.GetString("isLoggedIn") != null && @Context.Session.GetString("isLoggedIn") == "YES";
+}
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <h3 class="text-center">Details for <b>@Model.FullName</b></h3>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>@Html.DisplayNameFor(model => model.PictureUrl)</th>
+                        <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                        <th>@Html.DisplayNameFor(model => model.Bio)</th>
+                        @{
+                            if (loggedIn)
+                            {
+                                <th>Actions</th>
+
+                            }
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle">
+                            <img class="border-info rounded-circle" src="@Model.PictureUrl" alt="@Model.FullName" style="max-width: 150px" />
+                        </td>
+                        <td class="text-center align-middle">
+                            @Html.DisplayFor(modelItem => Model.FullName)
+                        </td>
+                        <td class="text-center align-middle">
+                            @Html.DisplayFor(modelItem => Model.Bio)
+                        </td>
+                        @{
+                            if (loggedIn)
+                            {
+                                <td class="text-center align-middle">
+                                    <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-id="@Model.Id"> Edit </a>
+                                </td>
+                            }
+                        }
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <a class="btn btn-outline-secondary" asp-action="Index">Show all</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('PictureUrlPreview');
+            output.src = $("#PictureUrl").val();
+        })
+    </script>
+}

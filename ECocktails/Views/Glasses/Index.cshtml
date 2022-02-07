@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ECocktails.Domain.DomainModels.Glass>
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "List of Glasses";
+}
+
+@{
+    bool loggedIn = @Context.Session.GetString("isLoggedIn") != null && @Context.Session.GetString("isLoggedIn") == "YES";
+}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.PictureUrl)</th>
+                    @{
+                        if (loggedIn)
+                        {
+                            <th>Actions</th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            <img class="rounded-circle" src="@item.PictureUrl" style="max-width: 150px" />
+                        </td>
+                        @{
+                            if (loggedIn)
+                            {
+                                <td class="text-center align-middle">
+                                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit </a> |
+                                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Delete</a>
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@{
+    if (loggedIn)
+    {
+        <div style="position:fixed; right: 25px; bottom:40px;" class="text-white">
+            <a asp-controller="Glasses" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add new glass</a>
+        </div>
+    }
+}

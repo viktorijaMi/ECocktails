@@ -1,0 +1,14 @@
+﻿@model string;
+@using Microsoft.AspNetCore.Http;
+
+@{
+    bool loggedIn = @Context.Session.GetString("isLoggedIn") != null && @Context.Session.GetString("isLoggedIn") == "YES";
+    if (loggedIn)
+    {
+        <div style="position: fixed; right: 25px; bottom: 60px;" class="text-white">
+            <a asp-controller="@Model" asp-action="Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Add New
+            </a>
+        </div>
+    }
+}

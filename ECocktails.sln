@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECocktails", "ECocktails\ECocktails.csproj", "{F925785B-66F4-4346-BB03-0D918FFD7DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECocktails.Web", "ECocktails\ECocktails.Web.csproj", "{F925785B-66F4-4346-BB03-0D918FFD7DAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ECocktails", "ECocktails", "{31B14135-7E5F-4847-931C-BF4240DE1459}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECocktails.Domain", "ECocktails.Domain\ECocktails.Domain.csproj", "{B8F77FB2-E917-4C80-8A25-7FF3525CFC90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECocktails.Repository", "ECocktails.Repository\ECocktails.Repository.csproj", "{B2E293E8-9A06-4126-AAD1-409C450B8024}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECocktails.Service", "ECocktails.Service\ECocktails.Service.csproj", "{A08EF9E8-DE70-417F-A8FF-9C1D0F108754}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,27 @@ Global
 		{F925785B-66F4-4346-BB03-0D918FFD7DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F925785B-66F4-4346-BB03-0D918FFD7DAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F925785B-66F4-4346-BB03-0D918FFD7DAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F77FB2-E917-4C80-8A25-7FF3525CFC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F77FB2-E917-4C80-8A25-7FF3525CFC90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F77FB2-E917-4C80-8A25-7FF3525CFC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F77FB2-E917-4C80-8A25-7FF3525CFC90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E293E8-9A06-4126-AAD1-409C450B8024}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E293E8-9A06-4126-AAD1-409C450B8024}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E293E8-9A06-4126-AAD1-409C450B8024}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E293E8-9A06-4126-AAD1-409C450B8024}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A08EF9E8-DE70-417F-A8FF-9C1D0F108754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A08EF9E8-DE70-417F-A8FF-9C1D0F108754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A08EF9E8-DE70-417F-A8FF-9C1D0F108754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A08EF9E8-DE70-417F-A8FF-9C1D0F108754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F925785B-66F4-4346-BB03-0D918FFD7DAF} = {31B14135-7E5F-4847-931C-BF4240DE1459}
+		{B8F77FB2-E917-4C80-8A25-7FF3525CFC90} = {31B14135-7E5F-4847-931C-BF4240DE1459}
+		{B2E293E8-9A06-4126-AAD1-409C450B8024} = {31B14135-7E5F-4847-931C-BF4240DE1459}
+		{A08EF9E8-DE70-417F-A8FF-9C1D0F108754} = {31B14135-7E5F-4847-931C-BF4240DE1459}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {033A3FC3-8419-4D1B-AE84-F2D1D77D6490}

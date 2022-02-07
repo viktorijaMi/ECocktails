@@ -1,11 +1,19 @@
-using ECocktails.Data;
+using ECocktails.Domain.Identity;
+using ECocktails.Repository;
+using ECocktails.Repository.Implementation;
+using ECocktails.Repository.Interface;
+using ECocktails.Service;
+using ECocktails.Service.Implementation;
+using ECocktails.Service.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +34,33 @@ namespace ECocktails
         public void ConfigureServices(IServiceCollection services)
         {
             //DbContext configuration
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AppDbContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<CocktailShopApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof(ICocktailRepository), typeof(CocktailRepository));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+
+            //Services configuration
+            services.AddTransient<IIngredientsService, IngredientsService>();
+            services.AddTransient<IBarsService, BarsService>(); 
+            services.AddTransient<ICocktailsService, CocktailsService>();
+            services.AddTransient<IBarmansService, BarmansService>();
+            services.AddTransient<IGlassesService, GlassesService>();
+            services.AddTransient<IOrderService, ECocktails.Service.Implementation.OrderService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
 
             services.AddControllersWithViews();
         }
@@ -34,6 +68,7 @@ namespace ECocktails
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -49,7 +84,10 @@ namespace ECocktails
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
